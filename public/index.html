@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chat App</title>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <div>
+      <header>
+        <button onclick="document.body.classList.toggle('light');">
+          Toggle dark-mode
+        </button>
+        <h1>Chat with Bot</h1>
+      </header>
+
+      <main>
+        <div id="messages"></div>
+        <input id="messageInput" type="text" placeholder="Type a message..." />
+        <button id="sendButton">Send</button>
+      </main>
+
+      <br />
+
+      <footer>
+        Visit the
+        <a href="https://github.com/SzilvasiPeter/denoChat">denoChat</a>
+        repository for more information
+      </footer>
+    </div>
+
+    <script src="chat.js"></script>
+  </body>
+</html>
