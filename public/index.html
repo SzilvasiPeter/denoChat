@@ -6,28 +6,21 @@
   </head>
   <body>
     <div>
-      <header>
-        <button onclick="document.body.classList.toggle('light');">
-          Toggle dark-mode
-        </button>
-        <h1>Chat with Bot</h1>
-      </header>
+      <button onclick="document.body.classList.toggle('light');">
+        Toggle dark-mode
+      </button>
+      <h1>Chat with Bot</h1>
 
-      <main>
-        <div id="messages"></div>
-        <input id="messageInput" type="text" placeholder="Type a message..." />
-        <button id="sendButton">Send</button>
-      </main>
+      <div id="messages"></div>
+      <input id="messageInput" type="text" placeholder="Type a message..." />
+      <button id="sendButton">Send</button>
 
-      <br />
-
-      <footer>
+      <p>
         Visit the
         <a href="https://github.com/SzilvasiPeter/denoChat">denoChat</a>
         repository for more information
-      </footer>
+      </p>
     </div>
-
     <script src="chat.js"></script>
   </body>
 </html>
