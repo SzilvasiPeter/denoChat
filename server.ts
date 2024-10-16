@@ -9,42 +9,37 @@ const app = new Hono();
 // Simple in-memory storage for messages
 let lastMessage = "";
 
-app.post("/send-message", async (context) => {
-  const body = await context.req.json();
-  const userMessage = body.message;
+app.post("/send-message", async (ctx) => {
+  lastMessage = await ctx.req.json().then((res) => res.message);
 
-  lastMessage = userMessage;
-
-  return context.json({ success: true, message: "Message received!" });
+  return ctx.json({ success: true });
 });
 
-app.get("/get-response", async (context) => {
-  if (lastMessage) {
-    const openai = new AzureOpenAI({
-      endpoint: Deno.env.get("AZURE_ENDPOINT"),
-      apiKey: Deno.env.get("AZURE_APIKEY"),
-      apiVersion: "2024-06-01",
-    });
+app.get("/get-response", async (ctx) => {
+  if (!lastMessage) return ctx.json({ message: "" });
 
-    const result = await openai.chat.completions.create({
-      model: "gpt-4o",
-      messages: [{ role: "user", content: lastMessage }],
-    });
+  const openai = new AzureOpenAI({
+    endpoint: Deno.env.get("AZURE_ENDPOINT"),
+    apiKey: Deno.env.get("AZURE_APIKEY"),
+    apiVersion: "2024-06-01",
+  });
 
-    const message = result.choices[0].message.content;
-    const markdownMessage = message != null ? message : "I can't answer.";
-    const renderedMessage = marked.parse(`Bot: ${markdownMessage}`);
+  const result = await openai.chat.completions.create({
+    model: "gpt-4o",
+    messages: [{ role: "user", content: lastMessage }],
+  });
 
-    lastMessage = "";
+  const message = result.choices[0].message.content;
+  const markdownMessage = message != null ? message : "I can't answer.";
+  const renderedMessage = marked.parse(markdownMessage);
 
-    return context.json({ response: renderedMessage });
-  }
+  lastMessage = "";
 
-  return context.json({ response: "" });
+  return ctx.json({ message: renderedMessage });
 });
 
 // Serve static files (JavaScript, HTML, CSS)
-app.use("/static/*", serveStatic({ root: "./" }));
-app.get("/", (c) => c.redirect("/static/index.html"));
+app.use("/public/*", serveStatic({ root: "./" }));
+app.get("/", (c) => c.redirect("/public/index.html"));
 
 Deno.serve({ port: 8080 }, app.fetch);
