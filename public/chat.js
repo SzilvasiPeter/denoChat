@@ -12,17 +12,18 @@ async function sendMessage() {
     body: JSON.stringify({ message }),
   });
 
-  appendMessage(message);
+  appendMessage(`<p>${message}</p>`, "userMessage");
   messageInput.value = "";
 
   const response = await fetch("/get-response").then((resp) => resp.json());
   if (!response.message) return;
 
-  appendMessage(response.message);
+  appendMessage(response.message, "botMessage");
 }
 
-function appendMessage(content) {
+function appendMessage(content, className) {
   const message = document.createElement("div");
+  message.className = className;
   message.innerHTML = content;
   messagesDiv.appendChild(message);
 }

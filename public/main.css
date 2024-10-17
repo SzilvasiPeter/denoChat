@@ -2,9 +2,6 @@ body {
   background: black;
   color: white;
   transition: background-color 0.3s, color 0.3s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 body.light {
@@ -14,4 +11,65 @@ body.light {
 
 a:visited {
   color: lightseagreen;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+div {
+  margin: 16px;
+  padding: 4px;
+}
+
+.userMessage {
+  width: 60%;
+  margin-left: auto;
+  text-align: left;
+  border: 2px solid lightblue;
+  border-radius: 15px;
+}
+
+.botMessage {
+  margin-right: auto;
+  text-align: left;
+  border: 2px solid grey;
+  border-radius: 15px;
+}
+
+#messageInput {
+  border-radius: 10px;
+  height: 32px;
+  width: 90%;
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (min-width: 480px) {
+  #messages {
+    width: 480px;
+  }
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width: 768px) {
+  #messages {
+    width: 768px;
+  }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width: 992px) {
+  #messages {
+    width: 992px;
+  }
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width: 1200px) {
+  #messages {
+    width: 1200px;
+  }
 }
