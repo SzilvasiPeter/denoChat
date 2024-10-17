@@ -6,7 +6,7 @@ import { serveStatic } from "hono/deno";
 
 const app = new Hono();
 
-// TODO: Answer based on the top 3 most recent message
+// Store and answer based on the most recent message
 let lastMessage = "";
 
 app.post("/send-message", async (context) => {
